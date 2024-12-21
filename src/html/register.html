@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,14 +13,16 @@
       flex-direction: column;
       min-height: 100vh;
     }
+
     .register-container {
       max-width: 500px;
       margin: auto;
       padding: 30px;
       background-color: white;
       border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
+
     .error-message {
       color: #dc3545;
       font-size: 0.9rem;
@@ -31,7 +34,7 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
-        <img src="../img/1.jpg " alt="Bookstore Logo" width="40" height="40" class="d-inline-block align-text-top me-2">
+        <img src="../img/1.jpg" alt="Bookstore Logo" width="40" height="40" class="d-inline-block align-text-top me-2">
         Bookstore
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -39,15 +42,9 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="../index.html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="product.html">Products</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="cart.html">Cart</a>
-          </li>
+          <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="product.html">Products</a></li>
+          <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
         </ul>
         <div class="d-flex">
           <a class="nav-link" id="nav-item-login" href="login.html">Login</a>
@@ -77,20 +74,19 @@
         </div>
 
         <div class="form-floating mb-3">
-          <input type="password" class="form-control" id="frm-register-password-confirm" placeholder="Confirm Password" required>
+          <input type="password" class="form-control" id="frm-register-password-confirm" placeholder="Confirm Password"
+            required>
           <label for="frm-register-password-confirm">Confirm Password</label>
         </div>
 
         <div id="frm-register-error" class="error-message text-center mb-3"></div>
-
         <div class="d-grid">
           <button type="submit" class="btn btn-success btn-lg">Create Account</button>
         </div>
 
         <div class="text-center mt-3">
           <p class="text-muted">
-            Already have an account? 
-            <a href="./login.html" class="text-primary">Login here</a>
+            Already have an account? <a href="./login.html" class="text-primary">Login here</a>
           </p>
         </div>
       </form>
@@ -100,4 +96,5 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../js/register.js"></script>
 </body>
+
 </html>

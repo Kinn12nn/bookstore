@@ -1,73 +1,64 @@
-const users = [
-  { id: 1, email: 'user_1@test.com', password: 'password' },
-  { id: 2, email: 'user_2@test.com', password: 'password' },
-  { id: 3, email: 'khoa@test.com', password: 'password' }
-];
+document.addEventListener("DOMContentLoaded", function () {
+  const loginForm = document.getElementById("frm-login");
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
+  const errorDisplay = document.getElementById("frm-login-error");
 
-document.addEventListener('DOMContentLoaded', () => {
-  const loginForm = document.getElementById('frm-login');
-  
-  if (loginForm) {
-    loginForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
+  // Check login status when page loads
+  checkLoginStatus();
 
-      // Find user by email and password
-      const user = users.find(u => u.email === email && u.password === password);
+  loginForm.addEventListener("submit", function (event) {
+    event.preventDefault();
 
-      if (user) {
-        // Store the user in local storage
-        localStorage.setItem('loggedInUser', JSON.stringify({
-          id: user.id,
-          email: user.email,
-          name: user.name
-        }));
-        
-        // Redirect to home page
-        window.location.href = '../index.html';
-      } else {
-        // Show error message
-        const errorElement = document.getElementById('frm-login-error');
-        if (errorElement) {
-          errorElement.textContent = 'Invalid email or password.';
-        }
-      }
-    });
+    // Retrieve users from localStorage
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Find user by email and password
+    const user = users.find(
+      (u) => u.email === emailInput.value && u.password === passwordInput.value
+    );
+
+    if (user) {
+      // Store logged-in user data in localStorage
+      localStorage.setItem("loggedInUser", JSON.stringify(user));
+
+      // Redirect to the homepage (index.html)
+      window.location.href = "../index.html";
+    } else {
+      // Display error message if user not found
+      errorDisplay.textContent = "Invalid email or password.";
+    }
+  });
+
+  // Function to check the login status
+  function checkLoginStatus() {
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    const loginNav = document.getElementById("nav-item-login");
+    const logoutNav = document.getElementById("nav-item-logout");
+    const userWelcome = document.getElementById("user-welcome");
+    const usernameDisplay = document.getElementById("username");
+    const profileLink = document.getElementById("profile-link");
+
+    if (loggedInUser) {
+      // User is logged in
+      if (userWelcome) userWelcome.classList.remove("d-none");
+      if (usernameDisplay) usernameDisplay.textContent = loggedInUser.email;
+      if (loginNav) loginNav.classList.add("d-none");
+      if (logoutNav) logoutNav.classList.remove("d-none");
+      if (profileLink) profileLink.classList.remove("d-none");
+    } else {
+      // User is not logged in
+      if (userWelcome) userWelcome.classList.add("d-none");
+      if (loginNav) loginNav.classList.remove("d-none");
+      if (logoutNav) logoutNav.classList.add("d-none");
+      if (profileLink) profileLink.classList.add("d-none");
+    }
   }
+
+  // Logout function
+  window.logout = function logout() {
+    localStorage.removeItem("loggedInUser");
+    alert("Logged out successfully.");
+    window.location.href = "login.html";
+  };
 });
-
-// Logout function
-function logout() {
-  localStorage.removeItem('loggedInUser');
-  alert('Logged out successfully.');
-  window.location.href = 'login.html';
-}
-
-// Check login status (can be used across pages)
-function checkLoginStatus() {
-  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-  const loginNav = document.getElementById('nav-item-login');
-  const logoutNav = document.getElementById('nav-item-logout');
-  const userWelcome = document.getElementById('user-welcome');
-  const usernameDisplay = document.getElementById('username');
-  const profileLink = document.getElementById('profile-link');
-
-  if (loggedInUser) {
-    if (userWelcome) userWelcome.classList.remove('d-none');
-    if (usernameDisplay) usernameDisplay.textContent = loggedInUser.email;
-    if (loginNav) loginNav.classList.add('d-none');
-    if (logoutNav) logoutNav.classList.remove('d-none');
-    if (profileLink) profileLink.classList.remove('d-none');
-  } else {
-    if (userWelcome) userWelcome.classList.add('d-none');
-    if (loginNav) loginNav.classList.remove('d-none');
-    if (logoutNav) logoutNav.classList.add('d-none');
-    if (profileLink) profileLink.classList.add('d-none');
-  }
-}
-
-// Check login status on page load
-document.addEventListener('DOMContentLoaded', checkLoginStatus);
-window.logout = logout;
